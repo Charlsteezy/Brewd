@@ -5,6 +5,19 @@ import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { getCurrentUser } from "@/lib/session"
 import { Editor } from "@/components/editor"
+import { getUserSubscriptionPlan } from "@/lib/subscription"
+
+async function getUserForPost(userId: User["id"]) {
+  return await db.user.findFirst({
+      select: {
+        name: true,
+        image: true,
+      },
+      where: {
+        id: userId,
+      },
+    })
+}
 
 async function getPostForUser(postId: Post["id"], userId: User["id"]) {
   return await db.post.findFirst({
@@ -32,6 +45,18 @@ export default async function EditorPage({ params }: EditorPageProps) {
     notFound()
   }
 
+  const author = await getUserForPost(user.id)
+
+  if (!author) {
+    notFound()
+  }
+
+  const subscriptionPlan = await getUserSubscriptionPlan(user.id)
+
+  if(!subscriptionPlan) {
+    notFound()
+  }
+
   return (
     <Editor
       post={{
@@ -39,6 +64,11 @@ export default async function EditorPage({ params }: EditorPageProps) {
         title: post.title,
         content: post.content,
         published: post.published,
+        category: post.category,
+        authorName: author.name,
+        authorImage: author.image,
+        createdAt: post.createdAt,
+        isPro: subscriptionPlan.isPro,
       }}
     />
   )

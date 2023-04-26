@@ -21,6 +21,7 @@ import {
   Twitter,
   User,
   X,
+  Coffee,
   type Icon as LucideIcon,
 } from "lucide-react"
 
@@ -35,6 +36,7 @@ export const Icons = {
   trash: Trash,
   post: FileText,
   page: File,
+  coffee: Coffee,
   media: Image,
   settings: Settings,
   billing: CreditCard,

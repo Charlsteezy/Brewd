@@ -66,8 +66,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       const post = await db.post.create({
         data: {
           title: body.title,
+          content: body.content,
           authorId: session.user.id,
-          category: "Uncategorized",
+          category: "uncategorized",
         },
         select: {
           id: true,

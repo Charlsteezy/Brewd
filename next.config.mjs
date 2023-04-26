@@ -5,6 +5,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ["avatars.githubusercontent.com"],
+    domains: ["s.gravatar.com"],
   },
   experimental: {
     appDir: true,

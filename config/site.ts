@@ -1,9 +1,9 @@
 import { SiteConfig } from "types"
 
 export const siteConfig: SiteConfig = {
-  name: "Taxonomy",
+  name: "Brewd",
   description:
-    "An open source application built using the new router, server components and everything new in Next.js 13.",
+    "The worlds largest coffee recipe database. Right at your fingertips.",
   url: "https://tx.shadcn.com",
   ogImage: "https://tx.shadcn.com/og.jpg",
   links: {

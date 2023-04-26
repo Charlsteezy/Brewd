@@ -1,6 +1,6 @@
 import { cache } from "react"
 import { redirect } from "next/navigation"
-import { User } from "@prisma/client"
+import { Post, User } from "@prisma/client"
 
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
@@ -17,6 +17,7 @@ export const metadata = {
   title: "Dashboard",
 }
 
+
 const getPostsForUser = cache(async (userId: User["id"]) => {
   return await db.post.findMany({
     where: {
@@ -27,12 +28,14 @@ const getPostsForUser = cache(async (userId: User["id"]) => {
       title: true,
       published: true,
       createdAt: true,
+      category: true,
     },
     orderBy: {
-      updatedAt: "desc",
+      createdAt: "desc",
     },
   })
 })
+
 
 export default async function DashboardPage() {
   const user = await getCurrentUser()
@@ -45,7 +48,7 @@ export default async function DashboardPage() {
 
   return (
     <DashboardShell>
-      <DashboardHeader heading="Posts" text="Create and manage posts.">
+      <DashboardHeader heading="My Posts" text="Create and manage your posts.">
         <PostCreateButton />
       </DashboardHeader>
       <div>

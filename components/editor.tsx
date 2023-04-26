@@ -10,6 +10,10 @@ import { Post } from "@prisma/client"
 import { useForm } from "react-hook-form"
 import TextareaAutosize from "react-textarea-autosize"
 import * as z from "zod"
+import { formatDate } from "@/lib/utils"
+import  Image from "next/image"
+import Select from "react-select";
+import { useState } from "react";
 
 import { cn } from "@/lib/utils"
 import { postPatchSchema } from "@/lib/validations/post"
@@ -17,12 +21,26 @@ import { Icons } from "@/components/icons"
 import { buttonVariants } from "@/components/ui/button"
 
 interface EditorProps {
-  post: Pick<Post, "id" | "title" | "content" | "published">
+  post: Pick<Post, "id" | "title" | "content" | "published" | "authorName" | "authorImage" | "createdAt"  | "category" | "isPro">
 }
 
 type FormData = z.infer<typeof postPatchSchema>
 
+
 export function Editor({ post }: EditorProps) {
+
+  const choices = [
+    { value: 'Recipe', label: 'Recipe' },
+    { value: 'Brew guide', label: 'Brew guide' },
+    { value: 'Question', label: 'Question' },
+    { value: 'Tech', label: 'Tech' },
+    { value: 'Announcement', label: 'Announcement' },
+    { value: 'Video', label: 'Video' },
+    { value: 'Review', label: 'Review' },
+  ];
+  
+  const [selectedOption, setSelectedOption] = useState(null)
+
   const { register, handleSubmit } = useForm<FormData>({
     resolver: zodResolver(postPatchSchema),
   })
@@ -41,6 +59,7 @@ export function Editor({ post }: EditorProps) {
     const LinkTool = (await import("@editorjs/link")).default
     const InlineCode = (await import("@editorjs/inline-code")).default
 
+
     const body = postPatchSchema.parse(post)
 
     if (!ref.current) {
@@ -49,7 +68,7 @@ export function Editor({ post }: EditorProps) {
         onReady() {
           ref.current = editor
         },
-        placeholder: "Type here to write your post...",
+        placeholder: "Tell us more... Take us through your proccess. Make use of the tools below to format your post.",
         inlineToolbar: true,
         data: body.content,
         tools: {
@@ -95,6 +114,7 @@ export function Editor({ post }: EditorProps) {
       body: JSON.stringify({
         title: data.title,
         content: blocks,
+        category: selectedOption.value,
       }),
     })
 
@@ -141,18 +161,63 @@ export function Editor({ post }: EditorProps) {
             {isSaving && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
-            <span>Save</span>
+            <span>Publish</span>
           </button>
         </div>
         <div className="prose prose-stone mx-auto w-[800px]">
-          <TextareaAutosize
-            autoFocus
-            id="title"
-            defaultValue={post.title}
-            placeholder="Post title"
-            className="w-full resize-none appearance-none overflow-hidden text-5xl font-bold focus:outline-none"
-            {...register("title")}
-          />
+            <div className="flex w-full">  
+                <Image
+                  src={post.authorImage}
+                  alt="Author Image"
+                  width={30}
+                  height={30}
+                  className="rounded-md border border-slate-200 bg-slate-200 transition-colors group-hover:border-slate-900"
+                />
+
+                <Link
+                href={`/profile/${post.authorName}}`}
+                className="font-semibold hover:underline my-auto"
+                >
+                <p className="text-md text-gray-500 my-auto ml-2">{post.authorName}</p>
+                </Link>
+                
+                {post.isPro ? (
+                    <p className="ml-3 my-auto">
+                      <Image
+                        src="/images/proicons/pro-stars.gif"
+                        alt="Pro Badge"
+                        width={30}
+                        height={30}
+                        loading="eager"
+                        ></Image>
+                      </p>
+                ) : (
+                    <p className="text-md text-gray-500 my-auto ml-3 bg-gray-900">FREE</p>
+                )} 
+
+                <p className="text-xs text-gray-500 my-auto justify-end ml-auto">{formatDate(post.createdAt)}</p>
+            </div>
+            {post.category != "none" ? (<div><p className="text-xs bg-green-200 rounded p-1">{post.category}</p></div>) : ("")}
+            <div className="flex gap-2">
+              <Select
+                id="category"
+                placeholder="Category"
+                defaultValue={selectedOption}
+                value={selectedOption}
+                onChange={setSelectedOption}
+                options={choices}
+                required={true}
+                className="w-1/4 my-auto z-10"
+              />
+              <TextareaAutosize
+                autoFocus
+                id="title"
+                defaultValue={post.title}
+                placeholder="What's on your mind?"
+                className="w-full resize-none appearance-none overflow-hidden text-5xl font-bold focus:outline-none"
+                {...register("title")}
+              />
+            </div>
           <div id="editor" className="min-h-[500px]" />
           <p className="text-sm text-gray-500">
             Use{" "}

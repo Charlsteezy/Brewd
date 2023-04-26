@@ -42,16 +42,15 @@ export default async function IndexPage() {
         <Image src={hero} width={250} alt="Hero image" priority />
         <div className="mx-auto flex flex-col items-start gap-4 lg:w-[52rem]">
           <h1 className="text-3xl font-bold leading-[1.1] tracking-tighter sm:text-5xl md:text-6xl">
-            What&apos;s going on here?
+            Recipes for you, by you
           </h1>
           <p className="max-w-[42rem] leading-normal text-slate-700 sm:text-xl sm:leading-8">
-            I&apos;m building a web app with Next.js 13 and open sourcing
-            everything. Follow along as we figure this out together.
+            A coumminuty driven coffee recipe database. Find, share, and enjoy the best recipes for your favorite coffee.
           </p>
         </div>
         <div className="flex gap-4">
           <Link href="/login" className={cn(buttonVariants({ size: "lg" }))}>
-            Get Started
+            Login
           </Link>
           <Link
             href={siteConfig.links.github}
@@ -59,7 +58,7 @@ export default async function IndexPage() {
             rel="noreferrer"
             className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
           >
-            GitHub
+            Register
           </Link>
         </div>
       </section>
@@ -67,12 +66,11 @@ export default async function IndexPage() {
       <section className="container grid justify-center gap-6 py-8 md:py-12 lg:py-24">
         <div className="mx-auto flex flex-col gap-4 md:max-w-[52rem]">
           <h2 className="text-3xl font-bold leading-[1.1] tracking-tighter sm:text-3xl md:text-6xl">
-            Features
+            How it works
           </h2>
           <p className="max-w-[85%] leading-normal text-slate-700 sm:text-lg sm:leading-7">
-            This project is an experiment to see how a modern app, with features
-            like auth, subscriptions, API routes, and static pages would work in
-            Next.js 13 app dir.
+            Brewd gives you a means to create beautiful recipe and brew guides, and share them with the world. 
+            Coffee lovers can browse and search for recipes, and save them to their own collection. Or follow their favorite creators.
           </p>
         </div>
         <div className="grid justify-center gap-4 sm:grid-cols-2 md:max-w-[56rem] md:grid-cols-3">

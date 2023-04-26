@@ -1,15 +1,18 @@
 import Link from "next/link"
 import { Post } from "@prisma/client"
+import { db } from "@/lib/db"
 
 import { formatDate } from "@/lib/utils"
 import { PostOperations } from "@/components/post-operations"
 import { Skeleton } from "@/components/ui/skeleton"
+import { User } from "@prisma/client"
 
 interface PostItemProps {
-  post: Pick<Post, "id" | "title" | "published" | "createdAt">
+  post: Pick<Post, "id" | "title" | "published" | "createdAt" | "category">
 }
 
 export function PostItem({ post }: PostItemProps) {
+
   return (
     <div className="flex items-center justify-between p-4">
       <div className="grid gap-1">
@@ -17,15 +20,15 @@ export function PostItem({ post }: PostItemProps) {
           href={`/editor/${post.id}`}
           className="font-semibold hover:underline"
         >
-          {post.title}
+          {"[" + post.category + "]" + " "} {post.title}
         </Link>
         <div>
           <p className="text-sm text-slate-600">
-            {formatDate(post.createdAt?.toDateString())}
+            {formatDate(post.createdAt)} <i className="text-green-900">{post.published ? "Published" : ""}{" "}</i>
           </p>
         </div>
       </div>
-      <PostOperations post={{ id: post.id, title: post.title }} />
+      <PostOperations post={{ id: post.id, title: post.title}} />
       {/* <PostDeleteButton post={{ id: post.id, title: post.title }} /> */}
     </div>
   )

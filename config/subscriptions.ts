@@ -8,7 +8,7 @@ export const freePlan: SubscriptionPlan = {
 }
 
 export const proPlan: SubscriptionPlan = {
-  name: "PRO",
-  description: "The PRO plan has unlimited posts.",
+  name: "Superstar",
+  description: "You have superstar status - thanks for helping out! You'll get a bunch of cool things.",
   stripePriceId: process.env.STRIPE_PRO_MONTHLY_PLAN_ID || "",
 }
