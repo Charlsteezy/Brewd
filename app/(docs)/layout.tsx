@@ -26,7 +26,7 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
             </div>
             <nav className="flex space-x-4">
               <Link
-                href={siteConfig.links.github}
+                href=""
                 target="_blank"
                 rel="noreferrer"
               >
@@ -38,7 +38,6 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
         </div>
       </header>
       <div className="container flex-1">{children}</div>
-      <SiteFooter />
     </div>
   )
 }

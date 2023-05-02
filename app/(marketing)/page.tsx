@@ -53,7 +53,7 @@ export default async function IndexPage() {
             Login
           </Link>
           <Link
-            href={siteConfig.links.github}
+            href=""
             target="_blank"
             rel="noreferrer"
             className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
@@ -177,7 +177,7 @@ export default async function IndexPage() {
             Taxonomy is open source and powered by open source software. The
             code is available on{" "}
             <Link
-              href={siteConfig.links.github}
+              href=""
               target="_blank"
               rel="noreferrer"
               className="underline underline-offset-4"
@@ -193,7 +193,7 @@ export default async function IndexPage() {
         </div>
         {stars && (
           <Link
-            href={siteConfig.links.github}
+            href="google.com"
             target="_blank"
             rel="noreferrer"
             className="flex"

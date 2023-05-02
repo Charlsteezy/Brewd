@@ -5,6 +5,7 @@ import { getCurrentUser } from "@/lib/session"
 import { MainNav } from "@/components/main-nav"
 import { DashboardNav } from "@/components/nav"
 import { UserAccountNav } from "@/components/user-account-nav"
+import { SiteFooter } from "@/components/site-footer"
 
 interface DashboardLayoutProps {
   children?: React.ReactNode
@@ -20,6 +21,7 @@ export default async function DashboardLayout({
   }
 
   return (
+  <div>
     <div className="mx-auto flex flex-col space-y-6">
       <header className="container sticky top-0 z-40 bg-white">
         <div className="flex h-16 items-center justify-between border-b border-b-slate-200 py-4">
@@ -42,5 +44,6 @@ export default async function DashboardLayout({
         </main>
       </div>
     </div>
+  </div>
   )
 }

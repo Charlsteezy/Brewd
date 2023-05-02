@@ -22,6 +22,14 @@ import {
   User,
   X,
   Coffee,
+  Link,
+  Bell,
+  Copyright,
+  Heart,
+  Share,
+  Star,
+  Save,
+  Reply,
   type Icon as LucideIcon,
 } from "lucide-react"
 
@@ -47,6 +55,9 @@ export const Icons = {
   arrowRight: ArrowRight,
   help: HelpCircle,
   pizza: Pizza,
+  link: Link,
+  bell: Bell,
+  copyright: Copyright,
   gitHub: ({ ...props }: LucideProps) => (
     <svg
       aria-hidden="true"
@@ -66,4 +77,9 @@ export const Icons = {
   ),
   twitter: Twitter,
   check: Check,
+  heart: Heart,
+  share: Share,
+  star: Star,
+  save: Save,
+  reply: Reply,
 }

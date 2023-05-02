@@ -1,54 +1,44 @@
 import { siteConfig } from "@/config/site"
 import { Icons } from "@/components/icons"
+import { cn } from "@/lib/utils"
 
-export function SiteFooter() {
+export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
   return (
-    <footer className="container bg-white text-slate-600">
-      <div className="flex  flex-col items-center justify-between gap-4 border-t border-t-slate-200 py-10 md:h-24 md:flex-row md:py-0">
+    <footer className={cn(className)}>
+      <div className="flex  flex-col items-center justify-between gap-4 border-t border-t-slate-200 py-10 md:h-24 md:flex-row md:py-0 p-3 mb-0">
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-          <Icons.logo />
+          <Icons.link className="w-5 h-5"/>
           <p className="text-center text-sm leading-loose md:text-left">
-            Built by{" "}
             <a
-              href={siteConfig.links.twitter}
+              href={siteConfig.links.about}
               target="_blank"
               rel="noreferrer"
               className="font-medium underline underline-offset-4"
             >
-              shadcn
+              About us
             </a>
-            . Hosted on{" "}
+            {" "} | {" "}
             <a
-              href="https://vercel.com"
+              href={siteConfig.links.instagram}
               target="_blank"
               rel="noreferrer"
               className="font-medium underline underline-offset-4"
             >
-              Vercel
+              Instagram
             </a>
-            . Illustrations by{" "}
+            {" "} | {" "}
             <a
-              href="https://popsy.co"
+              href={siteConfig.links.contactus}
               target="_blank"
               rel="noreferrer"
               className="font-medium underline underline-offset-4"
             >
-              Popsy
+              Report bug
             </a>
-            .
           </p>
         </div>
-        <p className="text-center text-sm md:text-left">
-          The source code is available on{" "}
-          <a
-            href={siteConfig.links.github}
-            target="_blank"
-            rel="noreferrer"
-            className="font-medium underline underline-offset-4"
-          >
-            GitHub
-          </a>
-          .
+        <p className="text-center text-sm md:text-left my-auto">
+           Brewd 2023
         </p>
       </div>
     </footer>

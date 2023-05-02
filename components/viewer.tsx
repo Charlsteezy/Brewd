@@ -8,26 +8,27 @@ import EditorJS from "@editorjs/editorjs"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Post } from "@prisma/client"
 import { useForm } from "react-hook-form"
-import TextareaAutosize from "react-textarea-autosize"
 import * as z from "zod"
 import { formatDate } from "@/lib/utils"
 import  Image from "next/image"
-import Select from "react-select";
 import { useState } from "react";
+import { PostActionButtons } from "@/components/post-action-buttons"
+import { CommentSection } from "@/components/post-comment-section"
 
 import { cn } from "@/lib/utils"
 import { postPatchSchema } from "@/lib/validations/post"
 import { Icons } from "@/components/icons"
 import { buttonVariants } from "@/components/ui/button"
+import { CommentItem } from "@/components/post-comment-item"
 
 interface EditorProps {
-  post: Pick<Post, "id" | "title" | "content" | "published" | "authorName" | "authorImage" | "createdAt"  | "category" | "isPro">
+  post: Pick<Post, "id" | "title" | "content" | "published" | "authorName" | "authorImage" | "createdAt"  | "category" | "isPro" | "currentUser">
 }
 
 type FormData = z.infer<typeof postPatchSchema>
 
 
-export function Editor({ post }: EditorProps) {
+export function Viewer({ post }: EditorProps) {
 
   const choices = [
     { value: 'Recipe', label: 'Recipe' },
@@ -51,13 +52,6 @@ export function Editor({ post }: EditorProps) {
 
   const initializeEditor = React.useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default
-    const Header = (await import("@editorjs/header")).default
-    const Embed = (await import("@editorjs/embed")).default
-    const Table = (await import("@editorjs/table")).default
-    const List = (await import("@editorjs/list")).default
-    const Code = (await import("@editorjs/code")).default
-    const LinkTool = (await import("@editorjs/link")).default
-    const InlineCode = (await import("@editorjs/inline-code")).default
 
 
     const body = postPatchSchema.parse(post)
@@ -71,14 +65,8 @@ export function Editor({ post }: EditorProps) {
         placeholder: "Tell us more... Take us through your proccess. Make use of the tools below to format your post.",
         inlineToolbar: true,
         data: body.content,
+        readOnly: true,
         tools: {
-          header: Header,
-          linkTool: LinkTool,
-          list: List,
-          code: Code,
-          inlineCode: InlineCode,
-          table: Table,
-          embed: Embed,
         },
       })
     }
@@ -101,51 +89,16 @@ export function Editor({ post }: EditorProps) {
     }
   }, [isMounted, initializeEditor])
 
-  async function onSubmit(data: FormData) {
-    setIsSaving(true)
-
-    const blocks = await ref.current?.save()
-
-    const response = await fetch(`/api/posts/${post.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: data.title,
-        content: blocks,
-        category: selectedOption.value,
-      }),
-    })
-
-    setIsSaving(false)
-
-    if (!response?.ok) {
-      return toast({
-        title: "Something went wrong.",
-        description: "Your post was not saved. Please try again.",
-        variant: "destructive",
-      })
-    }
-
-    router.refresh()
-
-    return toast({
-      description: "Your post has been saved.",
-    })
-  }
-
   if (!isMounted) {
     return null
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="grid w-full gap-10">
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center space-x-10">
             <Link
-              href="/dashboard"
+              href="/dashboard/browser"
               className={cn(buttonVariants({ variant: "ghost" }))}
             >
               <>
@@ -153,15 +106,12 @@ export function Editor({ post }: EditorProps) {
                 Back
               </>
             </Link>
-            <p className="text-sm text-slate-600">
-              {post.published ? "Published" : "Draft"}
-            </p>
           </div>
-          <button type="submit" className={cn(buttonVariants())}>
+          <button type="submit" className="appearance-none">
             {isSaving && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
-            <span>Publish</span>
+            <span className="flex gap-2"><Icons.save /> Save post</span>
           </button>
         </div>
         <div className="prose prose-stone mx-auto w-[800px]">
@@ -197,37 +147,18 @@ export function Editor({ post }: EditorProps) {
 
                 <p className="text-xs text-gray-500 my-auto justify-end ml-auto">{formatDate(post.createdAt)}</p>
             </div>
-            {post.category != "none" ? (<div><p className="text-xs bg-green-200 rounded p-1">{post.category}</p></div>) : ("")}
-            <div className="flex gap-2">
-              <Select
-                id="category"
-                placeholder="Category"
-                defaultValue={selectedOption}
-                value={selectedOption}
-                onChange={setSelectedOption}
-                options={choices}
-                required={true}
-                className="w-1/4 my-auto z-10"
-              />
-              <TextareaAutosize
-                autoFocus
-                id="title"
-                defaultValue={post.title}
-                placeholder="What's on your mind?"
-                className="w-full resize-none appearance-none overflow-hidden text-5xl font-bold focus:outline-none"
-                {...register("title")}
-              />
+            <div className="flex gap-3">
+              <p className="mt-0 appearance-none text-5xl font-bold focus:outline-none flex">
+                  [{post.category}]
+                {" "}
+                  {post.title}
+              </p>
             </div>
-          <div id="editor" className="min-h-[500px]" />
-          <p className="text-sm text-gray-500">
-            Use{" "}
-            <kbd className="rounded-md border bg-slate-50 px-1 text-xs uppercase">
-              Tab
-            </kbd>{" "}
-            to open the command menu.
-          </p>
+          <div id="editor" className="min-h-fit-content" />
+          <PostActionButtons key={post.id} post={post} />
+          <CommentSection post={post} />
+          <CommentItem />
         </div>
       </div>
-    </form>
   )
 }
