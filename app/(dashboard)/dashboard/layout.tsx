@@ -22,7 +22,7 @@ export default async function DashboardLayout({
 
   return (
   <div>
-    <div className="mx-auto flex flex-col space-y-6">
+    <div className="mx-auto flex flex-col gap-7">
       <header className="container sticky top-0 z-40 bg-white">
         <div className="flex h-16 items-center justify-between border-b border-b-slate-200 py-4">
           <MainNav items={dashboardConfig.mainNav} />
@@ -43,6 +43,9 @@ export default async function DashboardLayout({
           {children}
         </main>
       </div>
+      <section className="w-full mt-[50%]">
+        <SiteFooter className="bt-1" />
+      </section>
     </div>
   </div>
   )

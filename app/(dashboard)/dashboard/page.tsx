@@ -1,4 +1,3 @@
-import { cache } from "react"
 import { redirect } from "next/navigation"
 import { Post, User } from "@prisma/client"
 
@@ -19,7 +18,7 @@ export const metadata = {
 }
 
 
-const getPostsForUser = cache(async (userId: User["id"]) => {
+const getPostsForUser = async (userId: User["id"]) => {
   return await db.post.findMany({
     where: {
       authorId: userId,
@@ -35,7 +34,7 @@ const getPostsForUser = cache(async (userId: User["id"]) => {
       createdAt: "desc",
     },
   })
-})
+}
 
 
 export default async function DashboardPage() {

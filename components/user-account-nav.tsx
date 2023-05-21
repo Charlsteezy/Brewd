@@ -13,13 +13,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { UserAvatar } from "@/components/user-avatar"
+import { Inbox } from "@trycourier/react-inbox";
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
-  user: Pick<User, "name" | "image" | "email">
+  user: any,
 }
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
   return (
+  <div className="flex gap-5">
+      <Inbox
+      className="m-7"
+      title="Notifications"
+      defaultIcon="bell"
+      />
     <DropdownMenu>
       <DropdownMenuTrigger>
         <UserAvatar
@@ -62,5 +69,6 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  </div>
   )
 }

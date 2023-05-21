@@ -1,11 +1,17 @@
 import Link from "next/link"
 import Image from "next/image"
+import { Post } from "@prisma/client"
+import { formatDate } from "@/lib/utils"
 
 import { Icons } from "@/components/icons"
 
+interface CommentProps {
+    commentInfo: any
+}
 
+export const revalidate = 10
 
-export function CommentItem() {
+export function CommentItem( { commentInfo }: CommentProps) {
     return (
     <div>
         <div className="prose prose-stone mt-auto mx-auto w-full">
@@ -22,13 +28,27 @@ export function CommentItem() {
                 href={`/profile`}
                 className="font-semibold hover:underline my-auto"
                 >
-                <p className="text-md text-gray-500 my-auto ml-2">Charlie</p>
+                <p className="text-md text-gray-500 my-auto ml-2">{commentInfo.commenter.name}</p>
                 </Link>
 
-                <p className="text-xs text-gray-500 my-auto justify-end ml-auto">19/2/22</p>
+                {commentInfo.isASuperStar.isPro ? (
+                    <p className="ml-3 my-auto">
+                      <Image
+                        src="/images/proicons/pro-stars.gif"
+                        alt="Pro Badge"
+                        width={30}
+                        height={30}
+                        loading="eager"
+                        ></Image>
+                      </p>
+                ) : (
+                   ""
+                )} 
+
+                <p className="text-xs text-gray-500 my-auto justify-end ml-auto">{formatDate(commentInfo.createdAt)}</p>
             </div>
         </div>
-        <p className="text-md text-gray-500 my-auto">This is a comment</p>
+        <p className="text-md text-gray-500 my-auto">{ commentInfo.content }</p>
         <div className="flex gap-5 justify-end w-full">
             <button className="w-15 appearance-none"><Icons.heart /></button>
             <button className="w-15 appearance-none"><Icons.reply /></button>

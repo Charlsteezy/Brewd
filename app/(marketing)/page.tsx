@@ -1,51 +1,31 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
+import TextareaAutosize from "react-textarea-autosize"
 
 import { siteConfig } from "@/config/site"
+import { SiteFooter } from "@/components/site-footer"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import hero from "../../public/images/hero.png"
+import hero5 from "../../public/images/hero5.png"
 
-async function getGitHubStars(): Promise<string | null> {
-  try {
-    const response = await fetch(
-      "https://api.github.com/repos/shadcn/taxonomy",
-      {
-        headers: {
-          Accept: "application/vnd.github+json",
-          Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
-        },
-        next: {
-          revalidate: 60,
-        },
-      }
-    )
-
-    if (!response?.ok) {
-      return null
-    }
-
-    const json = await response.json()
-
-    return parseInt(json["stargazers_count"]).toLocaleString()
-  } catch (error) {
-    return null
-  }
-}
-
-export default async function IndexPage() {
-  const stars = await getGitHubStars()
+export default function IndexPage() {
 
   return (
     <>
       <section className="container grid items-center justify-center gap-6 pt-6 pb-8 md:pt-10 md:pb-12 lg:pt-16 lg:pb-24">
-        <Image src={hero} width={250} alt="Hero image" priority />
+        <div className="flex gap-2">
+          <Image src={hero} width={250} alt="Hero image" priority />
+        </div>
+
         <div className="mx-auto flex flex-col items-start gap-4 lg:w-[52rem]">
           <h1 className="text-3xl font-bold leading-[1.1] tracking-tighter sm:text-5xl md:text-6xl">
-            Recipes for you, by you
+            For coffee enthusiasts, by coffee enthusiasts.
           </h1>
           <p className="max-w-[42rem] leading-normal text-slate-700 sm:text-xl sm:leading-8">
-            A coumminuty driven coffee recipe database. Find, share, and enjoy the best recipes for your favorite coffee.
+            A community for people who well, love coffee. Share your favourite recipes, ask questions get tech tips and lots more.
           </p>
         </div>
         <div className="flex gap-4">
@@ -66,11 +46,10 @@ export default async function IndexPage() {
       <section className="container grid justify-center gap-6 py-8 md:py-12 lg:py-24">
         <div className="mx-auto flex flex-col gap-4 md:max-w-[52rem]">
           <h2 className="text-3xl font-bold leading-[1.1] tracking-tighter sm:text-3xl md:text-6xl">
-            How it works
+            Article style posts, to share your knowledge.
           </h2>
           <p className="max-w-[85%] leading-normal text-slate-700 sm:text-lg sm:leading-7">
-            Brewd gives you a means to create beautiful recipe and brew guides, and share them with the world. 
-            Coffee lovers can browse and search for recipes, and save them to their own collection. Or follow their favorite creators.
+           We give you the tools to make engaging, beautiful posts. You can add images, videos and more with ease.
           </p>
         </div>
         <div className="grid justify-center gap-4 sm:grid-cols-2 md:max-w-[56rem] md:grid-cols-3">
@@ -171,51 +150,22 @@ export default async function IndexPage() {
       <section className="container grid justify-center gap-6 py-8 md:py-12 lg:py-24">
         <div className="mx-auto flex flex-col gap-4 md:max-w-[52rem]">
           <h2 className="text-3xl font-bold leading-[1.1] tracking-tighter sm:text-3xl md:text-6xl">
-            Proudly Open Source
+            Join our mailing list
           </h2>
-          <p className="max-w-[85%] leading-normal text-slate-700 sm:text-lg sm:leading-7">
-            Taxonomy is open source and powered by open source software. The
-            code is available on{" "}
-            <Link
-              href=""
-              target="_blank"
-              rel="noreferrer"
-              className="underline underline-offset-4"
-            >
-              GitHub
-            </Link>
-            .{" "}
-            <Link href="/docs" className="underline underline-offset-4">
-              I&apos;m also documenting everything here
-            </Link>
-            .
-          </p>
         </div>
-        {stars && (
-          <Link
-            href="google.com"
-            target="_blank"
-            rel="noreferrer"
-            className="flex"
-          >
-            <div className="flex h-10 w-10 items-center justify-center space-x-2 rounded-md border border-slate-600 bg-slate-800">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                className="h-5 w-5 text-white"
-              >
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path>
-              </svg>
-            </div>
-            <div className="flex items-center">
-              <div className="h-4 w-4 border-y-8 border-r-8 border-l-0 border-solid border-y-transparent border-r-slate-800"></div>
-              <div className="flex h-10 items-center rounded-md border border-slate-800 bg-slate-800 px-4  font-medium text-slate-200">
-                {stars} stars on GitHub
+              <div className="mx-auto flex w-full gap-2 mt-3">
+                <TextareaAutosize
+                  id="comment"
+                  placeholder="Enter your email"
+                  className="w-3/4 resize-none appearance-none overflow-hidden sm:text-2xl text-4xl font-bold focus:outline-none border-b-[1px] border-black-900 my-auto p-1"
+                />
+                <button type="submit" className={cn(buttonVariants( { variant:"outline", size: "lg" } ))}>
+                <span className="text-xl font-bold">Join</span>
+                </button>
               </div>
-            </div>
-          </Link>
-        )}
+      </section>
+      <section className="w-full mt-auto">
+        <SiteFooter className="bt-1" />
       </section>
     </>
   )

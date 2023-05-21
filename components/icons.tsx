@@ -30,13 +30,15 @@ import {
   Star,
   Save,
   Reply,
+  MessageCircle,
+  Glasses,
   type Icon as LucideIcon,
 } from "lucide-react"
 
 export type Icon = LucideIcon
 
 export const Icons = {
-  logo: Command,
+  logo: Coffee,
   close: X,
   spinner: Loader2,
   chevronLeft: ChevronLeft,
@@ -82,4 +84,6 @@ export const Icons = {
   star: Star,
   save: Save,
   reply: Reply,
+  comment: MessageCircle,
+  browser: Glasses,
 }

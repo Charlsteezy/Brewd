@@ -9,6 +9,7 @@ import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/icons"
 import { MobileNav } from "@/components/mobile-nav"
+import { Inbox } from "@trycourier/react-inbox";
 
 interface MainNavProps {
   items?: MainNavItem[]
@@ -18,6 +19,11 @@ interface MainNavProps {
 export function MainNav({ items, children }: MainNavProps) {
   const segment = useSelectedLayoutSegment()
   const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false)
+
+  function filterFunction(notification) {
+    // Return true if the notification is for the current user
+    return notification.recipient === 'user123';
+  }
 
   return (
     <div className="flex gap-6 md:gap-10">

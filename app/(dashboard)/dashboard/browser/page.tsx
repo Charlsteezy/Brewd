@@ -1,4 +1,3 @@
-import { cache } from "react"
 import { redirect } from "next/navigation"
 import { Post, User } from "@prisma/client"
 
@@ -31,7 +30,7 @@ async function getUserForPost(userId: User["id"]) {
 }
 
 
-const getPostsForUser = cache(async () => {
+const getPostsForUser = async () => {
   return await db.post.findFirst({
     select: {
       id: true,
@@ -44,9 +43,52 @@ const getPostsForUser = cache(async () => {
       createdAt: "desc",
     },
   })
-})
+}
 
-const getPostsForUserWithAuthorInfo = async () => {
+async function checkIfPostLiked(postId: Post["id"], userId: User["id"]) {
+  const checkLiked =  await db.likes.findFirst({
+    where: {
+      postId: postId,
+      likedBy: userId,
+    },
+  })
+
+  if(checkLiked) {
+    return true
+  }else {
+    return false
+  }
+}
+
+async function getLikeCount(postId: Post["id"]) {
+  const likeCount =  await db.likes.count({
+    where: {
+      postId: postId
+    },
+  })
+
+  if(!likeCount) {
+    return 0
+  }else {
+    return likeCount
+  }
+}
+
+async function getCommentCount(postId: Post["id"]) {
+  const commentCount =  await db.comments.count({
+    where: {
+      postId: postId
+    },
+  })
+
+  if(!commentCount) {
+    return 0
+  }else {
+    return commentCount
+  }
+}
+
+const getPostsForUserWithAuthorInfo = async (user) => {
  
     const posts = await db.post.findMany({
       where: {
@@ -68,10 +110,19 @@ const getPostsForUserWithAuthorInfo = async () => {
     const postsWithAuthorInfo = await Promise.all(posts.map(async (post) => {
       const author = await getUserForPost(post.authorId)
       const isASuperStar = await getUserSubscriptionPlan(post.authorId)
+      
+      const liked = await checkIfPostLiked(post.id, user.id)
+
+      const likeCount = await getLikeCount(post.id)
+
+    const commentCount = await getCommentCount(post.id)
       return {
         ...post,
         author,
         isASuperStar,
+        liked,
+        likeCount,
+        commentCount,
       }
     }))
 
@@ -87,9 +138,7 @@ export default async function DashboardPage() {
     redirect(authOptions?.pages?.signIn || "/login")
   }
 
-    const postsWithUser = await getPostsForUserWithAuthorInfo()
-
-    console.log(postsWithUser)
+    const postsWithUser = await getPostsForUserWithAuthorInfo(user)
 
   return (
     <DashboardShell>
@@ -98,9 +147,9 @@ export default async function DashboardPage() {
       </DashboardHeader>
       <div>
         {postsWithUser?.length ? (
-          <div className="divide-y divide-neutral-200 rounded-md border border-slate-200">
+          <div className="">
             {postsWithUser.map((post) => (
-              <PostItemBrowser key={post.id} post={post} />
+              <PostItemBrowser key={post.id} post={post}  />
             ))}
           </div>
         ) : (

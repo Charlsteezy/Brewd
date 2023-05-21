@@ -86,3 +86,39 @@ model Post {
 
   @@map(name: "posts")
 }
+
+model Comments {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @map(name: "updated_at")
+  commenterId  String
+  postId String
+
+  @@map(name: "comments")
+}
+
+model Likes {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @map(name: "updated_at")
+  postId String @unique
+  authorId String
+  likedBy String
+  redacted Boolean @default(false)
+
+  @@map(name: "likes")
+}
+
+model commentLikes {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @map(name: "updated_at")
+  commenterId  String
+  commentId String
+  authorId String
+  likedBy String
+  redacted Boolean @default(false)
+
+  @@map(name: "commentlikes")
+}

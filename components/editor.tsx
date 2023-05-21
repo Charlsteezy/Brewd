@@ -21,7 +21,7 @@ import { Icons } from "@/components/icons"
 import { buttonVariants } from "@/components/ui/button"
 
 interface EditorProps {
-  post: Pick<Post, "id" | "title" | "content" | "published" | "authorName" | "authorImage" | "createdAt"  | "category" | "isPro">
+  post: any,
 }
 
 type FormData = z.infer<typeof postPatchSchema>
@@ -142,7 +142,7 @@ export function Editor({ post }: EditorProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="grid w-full gap-10">
-        <div className="flex w-full items-center justify-between">
+        <div className="flex w-full items-center justify-between xs:max-w-xs">
           <div className="flex items-center space-x-10">
             <Link
               href="/dashboard"
@@ -164,7 +164,7 @@ export function Editor({ post }: EditorProps) {
             <span>Publish</span>
           </button>
         </div>
-        <div className="prose prose-stone mx-auto w-[800px]">
+        <div className="prose prose-stone mx-auto">
             <div className="flex w-full">  
                 <Image
                   src={post.authorImage}

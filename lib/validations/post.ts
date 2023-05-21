@@ -8,3 +8,10 @@ export const postPatchSchema = z.object({
 
   category: z.string().optional(),
 })
+
+export const postCommentSchema = z.object({
+  // TODO: Type this properly from editorjs block types?
+  comment: z.any().optional(),
+})
+
+

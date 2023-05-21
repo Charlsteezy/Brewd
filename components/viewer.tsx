@@ -12,23 +12,30 @@ import * as z from "zod"
 import { formatDate } from "@/lib/utils"
 import  Image from "next/image"
 import { useState } from "react";
-import { PostActionButtons } from "@/components/post-action-buttons"
-import { CommentSection } from "@/components/post-comment-section"
+import { postPatchSchema } from "@/lib/validations/post"
 
 import { cn } from "@/lib/utils"
-import { postPatchSchema } from "@/lib/validations/post"
 import { Icons } from "@/components/icons"
 import { buttonVariants } from "@/components/ui/button"
 import { CommentItem } from "@/components/post-comment-item"
+import { PostActionButtons } from "@/components/post-action-buttons"
+import { CommentSection } from "@/components/post-comment-section"
 
 interface EditorProps {
-  post: Pick<Post, "id" | "title" | "content" | "published" | "authorName" | "authorImage" | "createdAt"  | "category" | "isPro" | "currentUser">
+  post: any,
+  currentUser: string
+  currentUsername: string | null
+  liked: boolean,
+  likeCount: number,
+  commentCount: number,
 }
+
+export const revalidate = 0
 
 type FormData = z.infer<typeof postPatchSchema>
 
 
-export function Viewer({ post }: EditorProps) {
+export function Viewer({ post, currentUser, currentUsername, liked, likeCount, commentCount }: EditorProps) {
 
   const choices = [
     { value: 'Recipe', label: 'Recipe' },
@@ -41,6 +48,7 @@ export function Viewer({ post }: EditorProps) {
   ];
   
   const [selectedOption, setSelectedOption] = useState({ value: post.category, label: post.category });
+  const [isPageLoading, setIsPageLoading] = useState(true);
 
   const { register, handleSubmit } = useForm<FormData>({
     resolver: zodResolver(postPatchSchema),
@@ -52,6 +60,13 @@ export function Viewer({ post }: EditorProps) {
 
   const initializeEditor = React.useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default
+    const Header = (await import("@editorjs/header")).default
+    const Embed = (await import("@editorjs/embed")).default
+    const Table = (await import("@editorjs/table")).default
+    const List = (await import("@editorjs/list")).default
+    const Code = (await import("@editorjs/code")).default
+    const LinkTool = (await import("@editorjs/link")).default
+    const InlineCode = (await import("@editorjs/inline-code")).default
 
 
     const body = postPatchSchema.parse(post)
@@ -61,12 +76,20 @@ export function Viewer({ post }: EditorProps) {
         holder: "editor",
         onReady() {
           ref.current = editor
+          setIsPageLoading(false)
         },
         placeholder: "Tell us more... Take us through your proccess. Make use of the tools below to format your post.",
         inlineToolbar: true,
         data: body.content,
         readOnly: true,
         tools: {
+          header: Header,
+          linkTool: LinkTool,
+          list: List,
+          code: Code,
+          inlineCode: InlineCode,
+          table: Table,
+          embed: Embed,
         },
       })
     }
@@ -88,6 +111,7 @@ export function Viewer({ post }: EditorProps) {
       }
     }
   }, [isMounted, initializeEditor])
+
 
   if (!isMounted) {
     return null
@@ -114,7 +138,7 @@ export function Viewer({ post }: EditorProps) {
             <span className="flex gap-2"><Icons.save /> Save post</span>
           </button>
         </div>
-        <div className="prose prose-stone mx-auto w-[800px]">
+        <div className="prose prose-stone mx-auto lg:w-[800px]">
             <div className="flex w-full">  
                 <Image
                   src={post.authorImage}
@@ -142,22 +166,23 @@ export function Viewer({ post }: EditorProps) {
                         ></Image>
                       </p>
                 ) : (
-                    <p className="text-md text-gray-500 my-auto ml-3 bg-gray-900">FREE</p>
+                    null
                 )} 
 
                 <p className="text-xs text-gray-500 my-auto justify-end ml-auto">{formatDate(post.createdAt)}</p>
             </div>
-            <div className="flex gap-3">
+            <div className="flex gap-3 overflow-x-hidden max-w-[100vw]">
               <p className="mt-0 appearance-none text-5xl font-bold focus:outline-none flex">
                   [{post.category}]
                 {" "}
                   {post.title}
               </p>
             </div>
-          <div id="editor" className="min-h-fit-content" />
-          <PostActionButtons key={post.id} post={post} />
-          <CommentSection post={post} />
-          <CommentItem />
+          <div id="editor" className="overflow-x-hidden"/>
+          <PostActionButtons key={post.id} post={post} currentUser={currentUser} currentUsername={currentUsername} liked={liked} likeCountValue={likeCount} commentCountValue={commentCount} />
+          {isPageLoading ? (
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            ) : (<CommentSection post={post} currentUser={currentUser} currentUsername={currentUsername} />)}
         </div>
       </div>
   )

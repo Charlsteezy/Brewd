@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import rawBody from "raw-body"
 import Stripe from "stripe"
+import { sendNotification } from "@/lib/sendNotification"
 
 import { db } from "@/lib/db"
 import { stripe } from "@/lib/stripe"
@@ -38,6 +39,8 @@ export default async function handler(
     const subscription = await stripe.subscriptions.retrieve(
       session.subscription as string
     )
+
+    sendNotification(session?.metadata?.userId, "You're a superstar!", "You've unlocked superstar status. Thanks so much for helping out!", "/dashboard/billing")
 
     // Update the user stripe into in our database.
     // Since this is the initial subscription, we need to update

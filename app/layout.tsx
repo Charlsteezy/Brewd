@@ -1,3 +1,5 @@
+"use client"
+
 import { Inter as FontSans } from "next/font/google"
 
 import "@/styles/globals.css"
@@ -6,6 +8,10 @@ import { absoluteUrl, cn } from "@/lib/utils"
 import { Analytics } from "@/components/analytics"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { Toaster } from "@/components/ui/toaster"
+import { CourierProvider } from "@trycourier/react-provider";
+import { Toast } from "@trycourier/react-toast";
+import { useState, useEffect } from 'react';
+
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -16,62 +22,31 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
-export const metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  keywords: [
-    "Next.js",
-    "React",
-    "Tailwind CSS",
-    "Server Components",
-    "Radix UI",
-  ],
-  authors: [
-    {
-      name: "shadcn",
-      url: "https://shadcn.com",
-    },
-  ],
-  creator: "shadcn",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
-    images: [
-      {
-        url: absoluteUrl("/og.jpg"),
-        width: 1200,
-        height: 630,
-        alt: siteConfig.name,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: [`${siteConfig.url}/og.jpg`],
-    creator: "@shadcn",
-  },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
-  },
-  manifest: `${siteConfig.url}/site.webmanifest`,
-}
-
 export default function RootLayout({ children }: RootLayoutProps) {
+
+  const [userId, setUserId] = useState<string>();
+
+  useEffect(() => {
+    async function fetchUserId() {
+      const response = await fetch('/api/users/getCurrentUser',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            },  
+            });
+      const data = await response.json();
+      setUserId(data.id);
+    }
+
+    fetchUserId();
+  }, [])
+
+  const CLIENT_KEY = process.env.NEXT_PUBLIC_COURIER_CLIENT_KEY;
+  const USER_ID = userId;
+
+  console.log(userId)
+
   return (
     <html
       lang="en"
@@ -82,10 +57,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
     >
       <head />
       <body className="min-h-screen">
-        {children}
-        <Analytics />
-        <Toaster />
-        <TailwindIndicator />
+          <div>
+            <CourierProvider clientKey={CLIENT_KEY} userId={USER_ID}>
+                {children}
+                <Toast />
+            </CourierProvider>
+            <Analytics />
+            <Toaster />
+            <TailwindIndicator />
+          </div>
       </body>
     </html>
   )
