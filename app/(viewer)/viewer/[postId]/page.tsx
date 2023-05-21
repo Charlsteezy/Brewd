@@ -12,7 +12,7 @@ import Image from "next/image"
 import noCommentsImage from "/public/images/comments/communication.svg"
 
 interface EditorPageProps {
-  params: { postId: string }
+  params: { postId: string  }
 }
 
 export const revalidate = 10
