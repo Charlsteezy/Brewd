@@ -89,11 +89,11 @@ model Post {
 
 model Comments {
   id        String   @id @default(cuid())
-  content   String
+  content   String?
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @map(name: "updated_at")
-  commenterId  String
-  postId String
+  commenterId  String?
+  postId String?
 
   @@map(name: "comments")
 }
