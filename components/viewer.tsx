@@ -150,13 +150,13 @@ export function Viewer({ post, currentUser, currentUsername, liked, likeCount, c
 
                 <Link
                 href={`/profile/${post.authorName}}`}
-                className="font-semibold hover:underline my-auto"
+                className="my-auto font-semibold hover:underline"
                 >
-                <p className="text-md text-gray-500 my-auto ml-2">{post.authorName}</p>
+                <p className="text-md my-auto ml-2 text-gray-500">{post.authorName}</p>
                 </Link>
                 
                 {post.isPro ? (
-                    <p className="ml-3 my-auto">
+                    <p className="my-auto ml-3">
                       <Image
                         src="/images/proicons/pro-stars.gif"
                         alt="Pro Badge"
@@ -169,10 +169,10 @@ export function Viewer({ post, currentUser, currentUsername, liked, likeCount, c
                     null
                 )} 
 
-                <p className="text-xs text-gray-500 my-auto justify-end ml-auto">{formatDate(post.createdAt)}</p>
+                <p className="my-auto ml-auto justify-end text-xs text-gray-500">{formatDate(post.createdAt)}</p>
             </div>
-            <div className="flex gap-3 overflow-x-hidden max-w-[100vw]">
-              <p className="mt-0 appearance-none text-5xl font-bold focus:outline-none flex">
+            <div className="flex max-w-[100vw] gap-3 overflow-x-hidden">
+              <p className="mt-0 flex appearance-none text-5xl font-bold focus:outline-none">
                   [{post.category}]
                 {" "}
                   {post.title}

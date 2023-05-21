@@ -218,7 +218,7 @@ export default async function EditorPage({ params }: EditorPageProps) {
         ) : (
         <div className="flex flex-col items-center justify-center">
           <Image src={noCommentsImage} width={175} alt="Hero image" priority />
-          <h4>No one's replied to this post yet</h4> <h5>Be the first and get the conversation rolling</h5>
+          <h4>No one&apos;s replied to this post yet</h4> <h5>Be the first and get the conversation rolling</h5>
         </div>
         )}
       </div>

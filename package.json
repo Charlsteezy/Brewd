@@ -1,9 +1,9 @@
 {
-  "name": "taxonomy",
+  "name": "brewd",
   "version": "0.1.0",
   "private": true,
   "author": {
-    "name": "shadcn",
+    "name": "charlsteezy",
     "url": "https://twitter.com/shadcn"
   },
   "scripts": {
@@ -11,7 +11,7 @@
     "turbo": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint --fix",
     "preview": "next build && next start",
     "postinstall": "prisma generate"
   },

@@ -142,7 +142,7 @@ export function Editor({ post }: EditorProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="grid w-full gap-10">
-        <div className="flex w-full items-center justify-between xs:max-w-xs">
+        <div className="xs:max-w-xs flex w-full items-center justify-between">
           <div className="flex items-center space-x-10">
             <Link
               href="/dashboard"
@@ -176,13 +176,13 @@ export function Editor({ post }: EditorProps) {
 
                 <Link
                 href={`/profile/${post.authorName}}`}
-                className="font-semibold hover:underline my-auto"
+                className="my-auto font-semibold hover:underline"
                 >
-                <p className="text-md text-gray-500 my-auto ml-2">{post.authorName}</p>
+                <p className="text-md my-auto ml-2 text-gray-500">{post.authorName}</p>
                 </Link>
                 
                 {post.isPro ? (
-                    <p className="ml-3 my-auto">
+                    <p className="my-auto ml-3">
                       <Image
                         src="/images/proicons/pro-stars.gif"
                         alt="Pro Badge"
@@ -192,12 +192,12 @@ export function Editor({ post }: EditorProps) {
                         ></Image>
                       </p>
                 ) : (
-                    <p className="text-md text-gray-500 my-auto ml-3 bg-gray-900">FREE</p>
+                    <p className="text-md my-auto ml-3 bg-gray-900 text-gray-500">FREE</p>
                 )} 
 
-                <p className="text-xs text-gray-500 my-auto justify-end ml-auto">{formatDate(post.createdAt)}</p>
+                <p className="my-auto ml-auto justify-end text-xs text-gray-500">{formatDate(post.createdAt)}</p>
             </div>
-            {post.category != "none" ? (<div><p className="text-xs bg-green-200 rounded p-1">{post.category}</p></div>) : ("")}
+            {post.category != "none" ? (<div><p className="rounded bg-green-200 p-1 text-xs">{post.category}</p></div>) : ("")}
             <div className="flex gap-2">
               <Select
                 id="category"
@@ -207,7 +207,7 @@ export function Editor({ post }: EditorProps) {
                 onChange={setSelectedOption}
                 options={choices}
                 required={true}
-                className="w-1/4 my-auto z-10"
+                className="z-10 my-auto w-1/4"
               />
               <TextareaAutosize
                 autoFocus

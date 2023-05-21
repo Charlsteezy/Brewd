@@ -153,18 +153,18 @@ export default function IndexPage() {
             Join our mailing list
           </h2>
         </div>
-              <div className="mx-auto flex w-full gap-2 mt-3">
+              <div className="mx-auto mt-3 flex w-full gap-2">
                 <TextareaAutosize
                   id="comment"
                   placeholder="Enter your email"
-                  className="w-3/4 resize-none appearance-none overflow-hidden sm:text-2xl text-4xl font-bold focus:outline-none border-b-[1px] border-black-900 my-auto p-1"
+                  className="border-black-900 my-auto w-3/4 resize-none appearance-none overflow-hidden border-b-[1px] p-1 text-4xl font-bold focus:outline-none sm:text-2xl"
                 />
                 <button type="submit" className={cn(buttonVariants( { variant:"outline", size: "lg" } ))}>
                 <span className="text-xl font-bold">Join</span>
                 </button>
               </div>
       </section>
-      <section className="w-full mt-auto">
+      <section className="mt-auto w-full">
         <SiteFooter className="bt-1" />
       </section>
     </>

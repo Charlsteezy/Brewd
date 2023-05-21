@@ -43,7 +43,7 @@ export default async function DashboardLayout({
           {children}
         </main>
       </div>
-      <section className="w-full mt-[50%]">
+      <section className="mt-[50%] w-full">
         <SiteFooter className="bt-1" />
       </section>
     </div>

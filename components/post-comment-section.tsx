@@ -83,19 +83,19 @@ export function CommentSection( { post, currentUser, currentUsername }: CommentS
 
     return (
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex gap-3 mt-10 w-full bb-1">
-            <div className="flex gap-2 h-full mt-3 w-full">
+        <div className="bb-1 mt-10 flex w-full gap-3">
+            <div className="mt-3 flex h-full w-full gap-2">
               <Image
                     src={post.authorImage}
                     alt="Author Image"
                     width={30}
                     height={30}
-                    className="rounded-md border border-slate-200 bg-slate-200 transition-colors group-hover:border-slate-900 mt-auto"
+                    className="mt-auto rounded-md border border-slate-200 bg-slate-200 transition-colors group-hover:border-slate-900"
               />
               <TextareaAutosize
                   id="comment"
                   placeholder="Leave a comment..."
-                  className="w-full resize-none appearance-none text-md focus:outline-none bb-1"
+                  className="text-md bb-1 w-full resize-none appearance-none focus:outline-none"
                   {...register("comment")}
                 />
             </div>

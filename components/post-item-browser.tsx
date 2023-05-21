@@ -15,8 +15,8 @@ export function PostItemBrowser({ post }: PostItemBrowserProps) {
         <Link
           href={`/viewer/${post.id}`}
         >
-        <div className="flex items-center justify-between p-4 mb-2 rounded-md border border-slate-200">
-          <div className="grid gap-3 w-full">
+        <div className="mb-2 flex items-center justify-between rounded-md border border-slate-200 p-4">
+          <div className="grid w-full gap-3">
                 <div className="flex w-full">  
                     <Image
                       src={post.author.image}
@@ -28,13 +28,13 @@ export function PostItemBrowser({ post }: PostItemBrowserProps) {
 
                     <Link
                     href={`/profile/${post.author.name}}`}
-                    className="font-semibold hover:underline my-auto"
+                    className="my-auto font-semibold hover:underline"
                     >
-                    <p className="text-md text-gray-500 my-auto ml-2">{post.author.name}</p>
+                    <p className="text-md my-auto ml-2 text-gray-500">{post.author.name}</p>
                     </Link> 
 
                     {post.isASuperStar.isPro ? (
-                        <p className="ml-3 my-auto">
+                        <p className="my-auto ml-3">
                           <Image
                             src="/images/proicons/pro-stars.gif"
                             alt="Pro Badge"
@@ -47,10 +47,10 @@ export function PostItemBrowser({ post }: PostItemBrowserProps) {
                       ""
                     )} 
 
-                    <p className="text-xs text-gray-500 my-auto justify-end ml-auto">{formatDate(post.createdAt)}</p>
+                    <p className="my-auto ml-auto justify-end text-xs text-gray-500">{formatDate(post.createdAt)}</p>
                 </div>
             <div className="font-semibold hover:underline">
-              <span className="bg-black text-white rounded p-1 text-sm">{post.category}</span> {" " + post.title} 
+              <span className="rounded bg-black p-1 text-sm text-white">{post.category}</span> {" " + post.title} 
             </div>
             <div>
               <p className="text-sm text-slate-600">

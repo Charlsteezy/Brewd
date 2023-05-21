@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils"
 export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
   return (
     <footer className={cn(className)}>
-      <div className="flex  flex-col items-center justify-between gap-4 border-t border-t-slate-200 py-10 md:h-24 md:flex-row md:py-0 p-3 mb-0">
+      <div className="mb-0  flex flex-col items-center justify-between gap-4 border-t border-t-slate-200 p-3 py-10 md:h-24 md:flex-row md:py-0">
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-          <Icons.link className="w-5 h-5"/>
+          <Icons.link className="h-5 w-5"/>
           <p className="text-center text-sm leading-loose md:text-left">
             <a
               href={siteConfig.links.about}
@@ -37,7 +37,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
             </a>
           </p>
         </div>
-        <p className="text-center text-sm md:text-left my-auto">
+        <p className="my-auto text-center text-sm md:text-left">
            Brewd 2023
         </p>
       </div>

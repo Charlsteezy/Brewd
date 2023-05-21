@@ -88,7 +88,7 @@ export function PostActionButtons({ post, currentUser, currentUsername, liked, l
                 </div>
 
             {post.currentUser ? <button className="appearance-none" title="Superstar like this post!"><Icons.star /></button> : null }
-            <button className="appearance-none justify-end ml-auto" title="Share post"><Icons.share /></button>
+            <button className="ml-auto appearance-none justify-end" title="Share post"><Icons.share /></button>
         </div>
     );
 }

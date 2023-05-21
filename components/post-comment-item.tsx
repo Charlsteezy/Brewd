@@ -14,7 +14,7 @@ export const revalidate = 10
 export function CommentItem( { commentInfo }: CommentProps) {
     return (
     <div>
-        <div className="prose prose-stone mt-auto mx-auto w-full">
+        <div className="prose prose-stone mx-auto mt-auto w-full">
             <div className="flex w-full">  
                 <Image
                   src="https://s.gravatar.com/avatar/a4c6296f995682f254e7c8715fe87b23?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fch.png"
@@ -26,13 +26,13 @@ export function CommentItem( { commentInfo }: CommentProps) {
 
                 <Link
                 href={`/profile`}
-                className="font-semibold hover:underline my-auto"
+                className="my-auto font-semibold hover:underline"
                 >
-                <p className="text-md text-gray-500 my-auto ml-2">{commentInfo.commenter.name}</p>
+                <p className="text-md my-auto ml-2 text-gray-500">{commentInfo.commenter.name}</p>
                 </Link>
 
                 {commentInfo.isASuperStar.isPro ? (
-                    <p className="ml-3 my-auto">
+                    <p className="my-auto ml-3">
                       <Image
                         src="/images/proicons/pro-stars.gif"
                         alt="Pro Badge"
@@ -45,11 +45,11 @@ export function CommentItem( { commentInfo }: CommentProps) {
                    ""
                 )} 
 
-                <p className="text-xs text-gray-500 my-auto justify-end ml-auto">{formatDate(commentInfo.createdAt)}</p>
+                <p className="my-auto ml-auto justify-end text-xs text-gray-500">{formatDate(commentInfo.createdAt)}</p>
             </div>
         </div>
-        <p className="text-md text-gray-500 my-auto">{ commentInfo.content }</p>
-        <div className="flex gap-5 justify-end w-full">
+        <p className="text-md my-auto text-gray-500">{ commentInfo.content }</p>
+        <div className="flex w-full justify-end gap-5">
             <button className="w-15 appearance-none"><Icons.heart /></button>
             <button className="w-15 appearance-none"><Icons.reply /></button>
         </div>
