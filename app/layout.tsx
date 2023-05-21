@@ -1,7 +1,5 @@
 "use client"
 
-// ts-nocheck
-
 import { Inter as FontSans } from "next/font/google"
 
 import "@/styles/globals.css"
