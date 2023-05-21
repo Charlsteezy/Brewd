@@ -6,7 +6,7 @@ import { PostOperations } from "@/components/post-operations"
 import { Skeleton } from "@/components/ui/skeleton"
 
 interface PostItemProps {
-  post: Pick<Post, "id" | "title" | "published" | "createdAt" | "category">,
+  post: any,
 }
 
 export function PostItem({ post }: PostItemProps) {
