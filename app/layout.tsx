@@ -11,6 +11,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { CourierProvider } from "@trycourier/react-provider";
 import { Toast } from "@trycourier/react-toast";
 import { useState, useEffect } from 'react';
+import { useInbox } from "@trycourier/react-inbox"
 
 
 const fontSans = FontSans({
@@ -21,6 +22,7 @@ const fontSans = FontSans({
 interface RootLayoutProps {
   children: React.ReactNode
 }
+
 
 export default function RootLayout({ children }: RootLayoutProps) {
 
@@ -40,6 +42,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     }
 
     fetchUserId();
+
   }, [])
 
   const CLIENT_KEY = process.env.NEXT_PUBLIC_COURIER_CLIENT_KEY;

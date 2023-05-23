@@ -9,6 +9,8 @@ import { SiteFooter } from "@/components/site-footer"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import hero from "/public/images/hero.png"
+import hero2 from "/public/images/hero2.svg"
+import hero3 from "@/public/images/hero2.svg"
 
 export default function IndexPage() {
 
@@ -17,6 +19,8 @@ export default function IndexPage() {
       <section className="container grid items-center justify-center gap-6 pt-6 pb-8 md:pt-10 md:pb-12 lg:pt-16 lg:pb-24">
         <div className="flex gap-2">
           <Image src={hero} width={250} alt="Hero image" priority />
+          <Image src={hero2} width={250} alt="Hero image" priority />
+          <Image src={hero3} width={250} alt="Hero image" priority />
         </div>
 
         <div className="mx-auto flex flex-col items-start gap-4 lg:w-[52rem]">
