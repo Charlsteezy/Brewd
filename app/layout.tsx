@@ -12,6 +12,7 @@ import { CourierProvider } from "@trycourier/react-provider";
 import { Toast } from "@trycourier/react-toast";
 import { useState, useEffect } from 'react';
 import { useInbox } from "@trycourier/react-inbox"
+import { SessionProvider, useSession } from "next-auth/react"
 
 
 const fontSans = FontSans({
@@ -48,8 +49,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
   const CLIENT_KEY = process.env.NEXT_PUBLIC_COURIER_CLIENT_KEY;
   const USER_ID = userId;
 
-  console.log(userId)
-
   return (
     <html
       lang="en"
@@ -61,13 +60,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head />
       <body className="min-h-screen">
           <div>
-            <CourierProvider clientKey={CLIENT_KEY} userId={USER_ID}>
-                {children}
-                <Toast />
-            </CourierProvider>
-            <Analytics />
-            <Toaster />
-            <TailwindIndicator />
+            <SessionProvider>
+              <CourierProvider clientKey={CLIENT_KEY} userId={USER_ID}>
+                  {children}
+                  <Toast />
+              </CourierProvider>
+              <Analytics />
+              <Toaster />
+              <TailwindIndicator />
+            </SessionProvider>
           </div>
       </body>
     </html>
