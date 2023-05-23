@@ -4,6 +4,7 @@ import { Post } from "@prisma/client"
 import { formatDate } from "@/lib/utils"
 
 import { Icons } from "@/components/icons"
+import { SuperstarBadge } from "@/components/ui/superstar-badge"
 
 interface CommentProps {
     commentInfo: any
@@ -17,7 +18,7 @@ export function CommentItem( { commentInfo }: CommentProps) {
         <div className="prose prose-stone mx-auto mt-auto w-full">
             <div className="flex w-full">  
                 <Image
-                  src="https://s.gravatar.com/avatar/a4c6296f995682f254e7c8715fe87b23?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fch.png"
+                  src={commentInfo.commenter.image}
                   alt="Author Image"
                   width={30}
                   height={30}
@@ -33,13 +34,7 @@ export function CommentItem( { commentInfo }: CommentProps) {
 
                 {commentInfo.isASuperStar.isPro ? (
                     <p className="my-auto ml-3">
-                      <Image
-                        src="/images/proicons/pro-stars.gif"
-                        alt="Pro Badge"
-                        width={30}
-                        height={30}
-                        loading="eager"
-                        ></Image>
+                      <SuperstarBadge />
                       </p>
                 ) : (
                    ""

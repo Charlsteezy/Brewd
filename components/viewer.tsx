@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils"
 import { Icons } from "@/components/icons"
 import { buttonVariants } from "@/components/ui/button"
 import { CommentItem } from "@/components/post-comment-item"
+import { SuperstarBadge } from "@/components/ui/superstar-badge"
 import { PostActionButtons } from "@/components/post-action-buttons"
 import { CommentSection } from "@/components/post-comment-section"
 
@@ -157,13 +158,7 @@ export function Viewer({ post, currentUser, currentUsername, liked, likeCount, c
                 
                 {post.isPro ? (
                     <p className="my-auto ml-3">
-                      <Image
-                        src="/images/proicons/pro-stars.gif"
-                        alt="Pro Badge"
-                        width={30}
-                        height={30}
-                        loading="eager"
-                        ></Image>
+                      <SuperstarBadge />
                       </p>
                 ) : (
                     null

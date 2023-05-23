@@ -8,8 +8,7 @@ import { siteConfig } from "@/config/site"
 import { SiteFooter } from "@/components/site-footer"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
-import hero from "@/public/images/hero.png"
-import hero5 from "@/public/images/hero5.png"
+import hero from "/public/images/hero.png"
 
 export default function IndexPage() {
 

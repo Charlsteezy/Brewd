@@ -4,6 +4,7 @@ import Image from "next/image"
 import { formatDate } from "@/lib/utils"
 import { Skeleton } from "@/components/ui/skeleton"
 import { PostActionButtons } from "@/components/post-action-buttons"
+import { SuperstarBadge } from "@/components/ui/superstar-badge"
 
 interface PostItemBrowserProps {
   post: any,
@@ -35,13 +36,7 @@ export function PostItemBrowser({ post }: PostItemBrowserProps) {
 
                     {post.isASuperStar.isPro ? (
                         <p className="my-auto ml-3">
-                          <Image
-                            src="/images/proicons/pro-stars.gif"
-                            alt="Pro Badge"
-                            width={30}
-                            height={30}
-                            loading="eager"
-                            ></Image>
+                         <SuperstarBadge />
                           </p>
                     ) : (
                       ""
