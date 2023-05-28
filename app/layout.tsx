@@ -24,6 +24,7 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
+export const revalidate = 0;
 
 export default function RootLayout({ children }: RootLayoutProps) {
 
