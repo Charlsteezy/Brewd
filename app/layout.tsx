@@ -46,6 +46,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
   }, [])
 
+  console.log(userId)
+
   const CLIENT_KEY = process.env.NEXT_PUBLIC_COURIER_CLIENT_KEY;
   const USER_ID = userId;
 
