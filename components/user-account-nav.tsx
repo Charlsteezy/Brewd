@@ -23,7 +23,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
   return (
   <div className="flex gap-5">
       <Inbox
-      className="m-7 z-50"
+      className="z-50 m-7"
       title="Notifications"
       defaultIcon="bell"
       />

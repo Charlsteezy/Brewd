@@ -27,7 +27,7 @@ export function PostItemBrowser({ post }: PostItemBrowserProps) {
         <Link
           href={`/viewer/${post.id}`}
         >
-        <div className="mb-2 flex items-center justify-between border-b-[1px] border-slate-200 pb-4 pt-4">
+        <div className="mb-2 flex items-center justify-between border-b-[1px] border-slate-200 py-4">
           <div className="grid w-full gap-3">
                 <div className="flex w-full">  
                     <Image
@@ -58,7 +58,7 @@ export function PostItemBrowser({ post }: PostItemBrowserProps) {
             <div className="font-semibold hover:underline">
               <span className="rounded bg-black p-1 text-sm text-white">{post.category}</span> {" " + post.title} 
             </div>
-            <div className="text-md text-slate-600 w-full">
+            <div className="text-md w-full text-slate-600">
               <div className="w-full">
                 {paragraphs.map((paragraph, index) => (
                   <p className="w-full" key={index}><div dangerouslySetInnerHTML={{ __html: paragraph }} /></p>
@@ -78,7 +78,7 @@ export function PostItemBrowser({ post }: PostItemBrowserProps) {
 
 PostItemBrowser.Skeleton = function PostItemSkeleton() {
   return (
-    <div className="pb-4 pt-4">
+    <div className="py-4">
       <div className="space-y-5">
         <Skeleton className="h-5 w-2/5" />
         <Skeleton className="h-4 w-4/5" />
