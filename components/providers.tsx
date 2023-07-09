@@ -2,7 +2,6 @@
 
 import { CourierProvider } from "@trycourier/react-provider";
 import { Toast } from "@trycourier/react-toast";
-import { userData } from "@/components/user-data";
 
 
 interface ProvidersProps {
