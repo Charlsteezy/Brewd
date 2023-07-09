@@ -9,7 +9,10 @@ export default function DashboardLoading() {
       <DashboardHeader heading="Browse posts" text="Bear with us, fetching latest posts...">
         <PostCreateButton />
       </DashboardHeader>
-      <div className="divide-y divide-neutral-200 rounded-md border border-slate-200">
+      <div className="divide-y divide-neutral-200 border-b-[1px] border-slate-200 pb-2">
+        <PostItemBrowser.Skeleton />
+        <PostItemBrowser.Skeleton />
+        <PostItemBrowser.Skeleton />
         <PostItemBrowser.Skeleton />
         <PostItemBrowser.Skeleton />
         <PostItemBrowser.Skeleton />

@@ -97,6 +97,7 @@ const getPostsForUserWithAuthorInfo = async (user) => {
       select: {
         id: true,
         title: true,
+        content: true,
         published: true,
         createdAt: true,
         category: true,
@@ -147,11 +148,11 @@ export default async function DashboardPage() {
       </DashboardHeader>
       <div>
         {postsWithUser?.length ? (
-          <div className="">
+          <div>
             {postsWithUser.map((post) => (
               <PostItemBrowser key={post.id} post={post}  />
             ))}
-          </div>
+      </div>
         ) : (
           <EmptyPlaceholder>
             <EmptyPlaceholder.Icon name="post" />

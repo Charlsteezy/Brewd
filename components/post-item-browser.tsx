@@ -10,13 +10,24 @@ interface PostItemBrowserProps {
   post: any,
 }
 
+
 export function PostItemBrowser({ post }: PostItemBrowserProps) {
+
+
+  // Convert post.blocks to string using stringify
+  const data = post.content;
+
+  const paragraphs = data.blocks
+  .filter(block => block.type === "paragraph")
+  .map(block => block.data.text);
+  
+  
 
   return (
         <Link
           href={`/viewer/${post.id}`}
         >
-        <div className="mb-2 flex items-center justify-between rounded-md border border-slate-200 p-4">
+        <div className="mb-2 flex items-center justify-between border-b-[1px] border-slate-200 pb-4 pt-4">
           <div className="grid w-full gap-3">
                 <div className="flex w-full">  
                     <Image
@@ -47,6 +58,13 @@ export function PostItemBrowser({ post }: PostItemBrowserProps) {
             <div className="font-semibold hover:underline">
               <span className="rounded bg-black p-1 text-sm text-white">{post.category}</span> {" " + post.title} 
             </div>
+            <div className="text-md text-slate-600 w-full">
+              <div className="w-full">
+                {paragraphs.map((paragraph, index) => (
+                  <p className="w-full" key={index}><div dangerouslySetInnerHTML={{ __html: paragraph }} /></p>
+                ))}...
+              </div>
+            </div>
             <div>
               <p className="text-sm text-slate-600">
               <PostActionButtons key={post.id} post={post} currentUser={post.currentUser} currentUsername={post.currentUsername} liked={post.liked} likeCountValue={post.likeCount} commentCountValue={post.commentCount} />
@@ -60,10 +78,13 @@ export function PostItemBrowser({ post }: PostItemBrowserProps) {
 
 PostItemBrowser.Skeleton = function PostItemSkeleton() {
   return (
-    <div className="p-4">
-      <div className="space-y-3">
+    <div className="pb-4 pt-4">
+      <div className="space-y-5">
         <Skeleton className="h-5 w-2/5" />
         <Skeleton className="h-4 w-4/5" />
+        <Skeleton className="h-4 w-4/5" />
+        <Skeleton className="h-4 w-4/5" />
+        <Skeleton className="h-5 w-2/5" />
       </div>
     </div>
   )
