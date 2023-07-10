@@ -4,6 +4,9 @@ import { CourierProvider } from "@trycourier/react-provider";
 import { Toast } from "@trycourier/react-toast";
 
 
+export const revalidate = 0;
+
+
 interface ProvidersProps {
   children: React.ReactNode,
   userId: any,
