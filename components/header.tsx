@@ -10,7 +10,7 @@ export function DashboardHeader({
   children,
 }: DashboardHeaderProps) {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between sm:px-3">
       <div className="grid gap-1">
         <h1 className="text-2xl font-bold tracking-wide text-slate-900">
           {heading}

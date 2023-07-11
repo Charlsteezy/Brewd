@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation"
 import { Post, User } from "@prisma/client"
+import { useRouter } from "next/navigation"
 
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
@@ -12,6 +13,7 @@ import { PostCreateButton } from "@/components/post-create-button"
 import { PostItemBrowser } from "@/components/post-item-browser"
 import { DashboardShell } from "@/components/shell"
 import { buttonVariants } from "@/components/ui/button"
+import PullToRefreshComponent from "@/components/pull-to-refresh"
 
 export const metadata = {
   title: "Dashboard",
@@ -146,13 +148,15 @@ export default async function DashboardPage() {
       <DashboardHeader heading="Browse posts" text="Explore the community">
         <PostCreateButton />
       </DashboardHeader>
-      <div>
+
+      <PullToRefreshComponent user={user}>
+        <div>
         {postsWithUser?.length ? (
           <div>
             {postsWithUser.map((post) => (
               <PostItemBrowser key={post.id} post={post}  />
             ))}
-      </div>
+          </div>
         ) : (
           <EmptyPlaceholder>
             <EmptyPlaceholder.Icon name="post" />
@@ -169,6 +173,7 @@ export default async function DashboardPage() {
           </EmptyPlaceholder>
         )}
       </div>
+      </PullToRefreshComponent>
     </DashboardShell>
   )
 }
