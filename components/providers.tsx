@@ -2,6 +2,7 @@
 
 import { CourierProvider } from "@trycourier/react-provider";
 import { Toast } from "@trycourier/react-toast";
+import * as React from "react";
 
 
 export const revalidate = 0;
