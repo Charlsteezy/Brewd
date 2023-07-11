@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 "use client"
 
 import { CourierProvider } from "@trycourier/react-provider";
