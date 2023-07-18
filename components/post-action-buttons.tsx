@@ -74,7 +74,6 @@ export function PostActionButtons({ post, currentUser, currentUsername, liked, l
         setLikeCount(removeLike)
     }
 
-
     return (
         <div className="flex gap-7">
                 <div className="flex gap-2">

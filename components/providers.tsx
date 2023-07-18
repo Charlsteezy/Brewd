@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 "use client"
 
 import { CourierProvider } from "@trycourier/react-provider";
@@ -18,7 +20,6 @@ const CLIENT_KEY = process.env.NEXT_PUBLIC_COURIER_CLIENT_KEY;
 export default function Providers({ children, userId }: ProvidersProps) {
 
   return (
-              // @ts-nocheck
               <CourierProvider clientKey={CLIENT_KEY} userId={userId}>
                   {children}
                   <Toast />

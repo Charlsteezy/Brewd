@@ -15,8 +15,6 @@ interface EditorPageProps {
   params: { postId: string  }
 }
 
-export const revalidate = 10
-
 async function getCurrentUsername(currentUserId: User["id"]) {
   return await db.user.findFirst({
       select: {

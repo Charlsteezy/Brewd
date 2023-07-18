@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation"
 import { Post, User } from "@prisma/client"
 import { useRouter } from "next/navigation"
+import { toast } from "@/hooks/use-toast"
 
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
@@ -130,6 +131,16 @@ const getPostsForUserWithAuthorInfo = async (user) => {
     }))
 
     return postsWithAuthorInfo
+}
+
+async function getAllPosts(){
+  const res = await fetch("/api/getposts", {
+    method: "GET",
+  })
+
+  const posts = await res.json()
+
+  console.log(posts)
 }
 
 
