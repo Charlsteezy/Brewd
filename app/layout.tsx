@@ -91,7 +91,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head />
       <body className="min-h-screen">
           <div>
-              <Providers>
+              <Providers userId="clgkrmcrg000079eggm4ihywc">
                {children}
               </Providers>
               <Analytics />
