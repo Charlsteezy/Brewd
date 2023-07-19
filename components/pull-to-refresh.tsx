@@ -29,7 +29,8 @@ const getNewData = (): Promise<void> => {
     setTimeout(() => {
       res(revalidate().then(() => router.refresh()));
     }, 4000);
-  }).then(() => console.log("Refreshed!"));
+  }).then(() => console.log("Refreshed!"))
+  .catch(() => alert("Unable to refresh, try again later."));
 };
 
   return (
