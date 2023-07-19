@@ -8,6 +8,8 @@ import { Analytics } from "@/components/analytics"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { Toaster } from "@/components/ui/toaster"
 import { cn } from "@/lib/utils"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
 
 
         export const metadata = {
@@ -75,20 +77,6 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
-async function fetchUserId() {
-  const response = await fetch('/api/users/getCurrentUser',
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        },  
-        });
-  const data = await response.json();
-
-  console.log(data.id);
-  return data.id;
-}
-
 
 export default function RootLayout({ children }: RootLayoutProps) {
 
@@ -103,7 +91,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head />
       <body className="min-h-screen">
           <div>
-              <Providers userId="clgkrmcrg000079eggm4ihywc">
+              <Providers>
                {children}
               </Providers>
               <Analytics />

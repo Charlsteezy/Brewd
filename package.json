@@ -73,6 +73,7 @@
     "next-auth": "^4.20.1",
     "next-contentlayer": "^0.2.9",
     "next-themes": "^0.2.1",
+    "nextjs": "^0.0.3",
     "nodemailer": "^6.8.0",
     "pagination": "^0.4.6",
     "postmark": "^3.0.14",

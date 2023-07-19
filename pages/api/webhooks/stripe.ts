@@ -40,8 +40,6 @@ export default async function handler(
       session.subscription as string
     )
 
-    sendNotification(session?.metadata?.userId, "You're a superstar!", "You've unlocked superstar status. Thanks so much for helping out!", "/dashboard/billing")
-
     // Update the user stripe into in our database.
     // Since this is the initial subscription, we need to update
     // the subscription id and customer id.
@@ -58,6 +56,12 @@ export default async function handler(
         ),
       },
     })
+
+    const notificationTitle = "You're a superstar!"
+
+    const notificationMessage = "Thanks very much for becoming a superstar! It really helps out and will help grow the community"
+
+    sendNotification(session.metadata?.userId, notificationTitle, notificationMessage, "/dashboard/billing")
   }
 
   if (event.type === "invoice.payment_succeeded") {

@@ -11,24 +11,24 @@ interface ComponentProps {
   user: any,
 }
 
-async function revalidate() { 
-  const response = await fetch("http://localhost:3000/api/revalidatePath", {
-    method: "GET",
-  })
-
-  console.log(response.json())
-}
-
 export default function PullToRefreshComponent({ children, user }: ComponentProps) {
+
+  async function revalidate() { 
+    const response = await fetch("http://localhost:3000/api/revalidatePath", {
+      method: "GET",
+    })
+  
+    console.log(response.json())
+  }
 
 const router = useRouter()
 
 const getNewData = (): Promise<void> => {
   return new Promise(res => {
     setTimeout(() => {
-      res(router.refresh());
-    }, 1500);
-  });
+      res(revalidate().then(() => router.refresh()));
+    }, 4000);
+  }).then(() => console.log("Refreshed!"));
 };
 
   return (

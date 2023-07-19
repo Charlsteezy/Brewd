@@ -82,8 +82,14 @@ async function getUserForPost(userId: User["id"]) {
     }
   }
 
-export async function GET(req: NextRequest) {
-    
+export async function POST(req: NextRequest) {
+    const session = await getServerSession(authOptions)
+
+    if (!session) {
+      return new Response("No server response", { status: 401 })
+    }
+
+    const { user } = session
 
     try {
             const posts = await db.post.findMany({

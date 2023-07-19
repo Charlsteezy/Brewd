@@ -6,6 +6,7 @@ import { useState } from "react";
 import { sendNotification } from "@/lib/sendNotification";
 import { toast } from "@/hooks/use-toast"
 import { revalidatePath } from 'next/cache';
+import { useEffect } from "react";
 
 interface PostActionButtonsProps {
     post: {id: string, title: string, content: string, published: string, authorName: string, authorImage: string, authorId: string, createdAt: string, category: string, isPro: string, currentUser: string},
@@ -73,6 +74,32 @@ export function PostActionButtons({ post, currentUser, currentUsername, liked, l
 
         setLikeCount(removeLike)
     }
+
+    useEffect(() => {
+        if (liked) {
+            setIsLiked(true)
+            console.log("Post liked")
+        } else {
+            setIsLiked(false)
+        }
+    }, [liked])
+
+    useEffect(() => {
+        if (likeCountValue) {
+            setLikeCount(likeCountValue)
+        } else {
+            setLikeCount(0)
+        }
+    }, [likeCountValue])
+
+    useEffect(() => {
+        if (commentCountValue) {
+            setCommentCount(commentCountValue)
+        } else {
+            setCommentCount(0)
+        }
+    }, [commentCountValue])
+
 
     return (
         <div className="flex gap-7">
