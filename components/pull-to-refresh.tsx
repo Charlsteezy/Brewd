@@ -14,7 +14,8 @@ interface ComponentProps {
 export default function PullToRefreshComponent({ children, user }: ComponentProps) {
 
   async function revalidate() { 
-    const response = await fetch("http://localhost:3000/api/revalidatePath", {
+
+    const response = await fetch("https://brewd-d4a2.vercel.app/api/revalidatePath", {
       method: "GET",
     })
   
