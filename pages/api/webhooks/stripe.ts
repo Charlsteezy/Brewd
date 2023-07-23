@@ -61,7 +61,7 @@ export default async function handler(
 
     const notificationMessage = "Thanks very much for becoming a superstar! It really helps out and will help grow the community"
 
-    sendNotification(session.metadata?.userId, notificationTitle, notificationMessage, "/dashboard/billing")
+    sendNotification("clgkrmcrg000079eggm4ihywc", notificationTitle, notificationMessage, "/dashboard/billing")
   }
 
   if (event.type === "invoice.payment_succeeded") {
@@ -82,6 +82,12 @@ export default async function handler(
         ),
       },
     })
+
+    const notificationTitle = "You recieved 500 Superstar coins!"
+
+    const notificationMessage = "Thanks for your continued support! Here's 500 Superstar coins to spread the love and make people feel special!"
+
+    sendNotification("clgkrmcrg000079eggm4ihywc", notificationTitle, notificationMessage, "/dashboard/billing")
   }
 
   return res.json({})

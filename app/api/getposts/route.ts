@@ -82,14 +82,14 @@ async function getUserForPost(userId: User["id"]) {
     }
   }
 
-export async function POST(req: NextRequest) {
-    const session = await getServerSession(authOptions)
+export async function GET(req: NextRequest) {
+    const session = await getCurrentUser()
 
     if (!session) {
       return new Response("No server response", { status: 401 })
     }
 
-    const { user } = session
+    const user = session
 
     try {
             const posts = await db.post.findMany({
@@ -114,7 +114,7 @@ export async function POST(req: NextRequest) {
               const author = await getUserForPost(post.authorId)
               const isASuperStar = await getUserSubscriptionPlan(post.authorId)
               
-              const liked = await checkIfPostLiked(post.id, "session.user.id")
+              const liked = await checkIfPostLiked(post.id, user.id)
         
               const likeCount = await getLikeCount(post.id)
         

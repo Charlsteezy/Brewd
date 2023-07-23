@@ -1,6 +1,5 @@
 import { redirect } from "next/navigation"
 import { Post, User } from "@prisma/client"
-import { useRouter } from "next/navigation"
 import { toast } from "@/hooks/use-toast"
 
 import { authOptions } from "@/lib/auth"
@@ -17,8 +16,10 @@ import { buttonVariants } from "@/components/ui/button"
 import PullToRefreshComponent from "@/components/pull-to-refresh"
 
 export const metadata = {
-  title: "Dashboard",
+  title: "Browser",
 }
+
+export const revalidate = 84600;
 
 async function getUserForPost(userId: User["id"]) {
   return await db.user.findFirst({
@@ -160,30 +161,7 @@ export default async function DashboardPage() {
         <PostCreateButton />
       </DashboardHeader>
 
-      <PullToRefreshComponent user={user}>
-        <div>
-        {postsWithUser?.length ? (
-          <div>
-            {postsWithUser.map((post) => (
-              <PostItemBrowser key={post.id} post={post}  />
-            ))}
-          </div>
-        ) : (
-          <EmptyPlaceholder>
-            <EmptyPlaceholder.Icon name="post" />
-            <EmptyPlaceholder.Title>No results for your search.</EmptyPlaceholder.Title>
-            <EmptyPlaceholder.Description>
-              Try searching something else, or create a post.
-            </EmptyPlaceholder.Description>
-            <PostCreateButton
-              className={cn(
-                buttonVariants({ variant: "outline" }),
-                "text-slate-900"
-              )}
-            />
-          </EmptyPlaceholder>
-        )}
-      </div>
+      <PullToRefreshComponent user={user} posts={postsWithUser}>
       </PullToRefreshComponent>
     </DashboardShell>
   )

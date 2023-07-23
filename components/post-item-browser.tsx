@@ -8,10 +8,11 @@ import { SuperstarBadge } from "@/components/ui/superstar-badge"
 
 interface PostItemBrowserProps {
   post: any,
+  user: any,
 }
 
 
-export function PostItemBrowser({ post }: PostItemBrowserProps) {
+export function PostItemBrowser({ post, user }: PostItemBrowserProps) {
 
 
   // Convert post.blocks to string using stringify
@@ -46,9 +47,9 @@ export function PostItemBrowser({ post }: PostItemBrowserProps) {
                     </Link> 
 
                     {post.isASuperStar.isPro ? (
-                        <p className="my-auto ml-3">
+                        <span className="my-auto ml-3">
                          <SuperstarBadge />
-                          </p>
+                          </span>
                     ) : (
                       ""
                     )} 
@@ -66,9 +67,9 @@ export function PostItemBrowser({ post }: PostItemBrowserProps) {
               </div>
             </div>
             <div>
-              <p className="text-sm text-slate-600">
-              <PostActionButtons key={post.id} post={post} currentUser={post.currentUser} currentUsername={post.currentUsername} liked={post.liked} likeCountValue={post.likeCount} commentCountValue={post.commentCount} />
-              </p>
+              <span className="text-sm text-slate-600">
+              <PostActionButtons key={post.id} post={post} currentUser={user.id} currentUsername={user.name} liked={post.liked} likeCountValue={post.likeCount} commentCountValue={post.commentCount} />
+              </span>
             </div>
           </div>
         </div>
